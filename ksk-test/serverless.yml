@@ -7,14 +7,24 @@ provider:
   runtime: python3.8
   lambdaHashingVersion: 20201221
 
-functions:
-  first:
-    handler: handler.hello
-    destinations:
-      onSuccess: successLambda
-      onFailure: failureLambda
-  successLambda:
-    handler: handler.successLambda
-  failureLambda:
-    handler: handler.failureLambda
+plugins:
+  - serverless-python-requirements
 
+custom:
+  pythonRequirements:
+    dockerizePip: true
+
+functions:
+  my-queue-test:
+    handler: handler.my_queue
+    events:
+      - sqs: arn:aws:sqs:us-east-1:400578137586:KSKQueue
+  # first:
+  #   handler: handler.hello
+  #   destinations:
+  #     onSuccess: successLambda
+  #     onFailure: failureLambda
+  # successLambda:
+  #   handler: handler.successLambda
+  # failureLambda:
+  #   handler: handler.failureLambda
