@@ -1,0 +1,10 @@
+{
+  "name": "ksk-test",
+  "description": "",
+  "version": "0.1.0",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless": "^2.66.2",
+    "serverless-lift": "^1.11.0"
+  }
+}

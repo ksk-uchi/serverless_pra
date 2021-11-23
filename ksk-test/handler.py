@@ -7,6 +7,7 @@ def hello(event, context):
     body = {
         "message": "This is hello lambda",
     }
+    print(json.dumps(event))
 
     if event["condition"] == "success":
         return {"statusCode": 200, "body": json.dumps(body)}
@@ -33,8 +34,9 @@ def failureLambda(event, context):
 
 
 def my_queue(event, context):
-    print(event)
-    raise Exception("to fail")
+    for record in event["Records"]:
+        print(record["body"])
+    # raise Exception("to fail")
 
 
 def sqs_send(message):
@@ -91,7 +93,6 @@ def sqs_receive():
 
     # import pdb;pdb.set_trace()
     # ...
-
 
 
 if __name__ == "__main__":

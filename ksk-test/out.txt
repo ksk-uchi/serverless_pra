@@ -1,1 +1,0 @@
-{"errorMessage": "'condition'", "errorType": "KeyError", "stackTrace": ["  File \"/var/task/handler.py\", line 9, in hello\n    if event[\"condition\"] == \"success\":\n"]}

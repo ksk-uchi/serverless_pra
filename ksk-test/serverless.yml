@@ -9,22 +9,31 @@ provider:
 
 plugins:
   - serverless-python-requirements
-
+  - serverless-lift
 custom:
   pythonRequirements:
     dockerizePip: true
 
-functions:
-  my-queue-test:
-    handler: handler.my_queue
-    events:
-      - sqs: arn:aws:sqs:us-east-1:400578137586:KSKQueue
-  # first:
-  #   handler: handler.hello
-  #   destinations:
-  #     onSuccess: successLambda
-  #     onFailure: failureLambda
-  # successLambda:
-  #   handler: handler.successLambda
-  # failureLambda:
-  #   handler: handler.failureLambda
+# functions:
+#   my-queue-test:
+#     handler: handler.my_queue
+#     events:
+#       - sqs:
+#           arn: arn:aws:sqs:us-east-1:400578137586:KSKQueue
+#           batchSize: 5
+#           maximumBatchingWindow: 30
+#   first:
+#     handler: handler.hello
+#     destinations:
+#       onSuccess: successLambda
+#       onFailure: failureLambda
+#   successLambda:
+#     handler: handler.successLambda
+#   failureLambda:
+#     handler: handler.failureLambda
+
+constructs:
+  ksk-queue:
+    type: queue
+    worker:
+      handler: handler.my_queue
