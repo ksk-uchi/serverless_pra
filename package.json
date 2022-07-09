@@ -34,5 +34,8 @@
   "bugs": {
     "url": "https://github.com/ksk-uchi/serverless_pra/issues"
   },
-  "homepage": "https://github.com/ksk-uchi/serverless_pra#readme"
+  "homepage": "https://github.com/ksk-uchi/serverless_pra#readme",
+  "devDependencies": {
+    "serverless-step-functions": "^3.7.0"
+  }
 }

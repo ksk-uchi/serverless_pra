@@ -1,0 +1,24 @@
+service: stepfunctions-test
+frameworkVersion: '2'
+variablesResolutionMode: 20210326
+
+provider:
+  name: aws
+  runtime: python3.8
+  lambdaHashingVersion: 20201221
+
+plugins:
+  - serverless-step-functions
+
+functions:
+  hello:
+    name: hello
+    handler: handler.hello
+  another-hello:
+    handler: handler.hello
+
+stepFunctions:
+  stateMachines:
+    StateMachine1:
+      name: TestStateMachine
+      definition: ${file(./sf.json)}

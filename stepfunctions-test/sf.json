@@ -1,0 +1,27 @@
+{
+  "StartAt": "ChoiceState",
+  "States": {
+    "ChoiceState": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.input",
+          "StringEquals": "something",
+          "Next": "Fail"
+        }
+      ],
+      "Default": "HelloWorld"
+    },
+    "HelloWorld": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:${aws:region}:${aws:accountId}:function:${self:service}-${sls:stage}-another-hello",
+      "Next": "Succeed"
+    },
+    "Fail": {
+      "Type": "Fail"
+    },
+    "Succeed": {
+      "Type": "Succeed"
+    }
+  }
+}
