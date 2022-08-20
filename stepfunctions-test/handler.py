@@ -1,24 +1,20 @@
-import json
+from __future__ import annotations
+
+from logging import getLogger, INFO
+from typing import Any
+
+from aws_lambda_powertools.utilities.typing import LambdaContext
 
 
-def hello(event, context):
-    body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "input": event
-    }
+logger = getLogger()
+logger.setLevel(INFO)
+
+def first_lambda(event: dict[str, Any], context: LambdaContext):
+    logger.info(event)
 
     response = {
         "statusCode": 200,
-        "body": json.dumps(body)
+        "body": "whatever you want."
     }
 
     return response
-
-    # Use this code if you don't use the http event with the LAMBDA-PROXY
-    # integration
-    """
-    return {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "event": event
-    }
-    """

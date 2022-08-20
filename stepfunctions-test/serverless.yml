@@ -4,21 +4,27 @@ variablesResolutionMode: 20210326
 
 provider:
   name: aws
-  runtime: python3.8
+  runtime: python3.9
   lambdaHashingVersion: 20201221
 
+package:
+  patterns:
+    - '!venv/**'
+
 plugins:
+  - serverless-python-requirements
   - serverless-step-functions
 
+custom:
+  pythonRequirements:
+    dockerizePip: true
+
 functions:
-  hello:
-    name: hello
-    handler: handler.hello
-  another-hello:
-    handler: handler.hello
+  first-lambda:
+    handler: handler.first_lambda
 
 stepFunctions:
   stateMachines:
-    StateMachine1:
-      name: TestStateMachine
+    LambdaComb:
+      name: LambdaComb
       definition: ${file(./sf.json)}

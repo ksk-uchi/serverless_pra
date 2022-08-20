@@ -1,24 +1,22 @@
 {
-  "StartAt": "ChoiceState",
+  "StartAt": "FirstLambda",
   "States": {
-    "ChoiceState": {
-      "Type": "Choice",
-      "Choices": [
-        {
-          "Variable": "$.input",
-          "StringEquals": "something",
-          "Next": "Fail"
-        }
-      ],
-      "Default": "HelloWorld"
-    },
-    "HelloWorld": {
+    "FirstLambda": {
+      "InputPath": "$.library",
+      "Parameters": {
+        "hoge.$": "$.movies"
+      },
       "Type": "Task",
-      "Resource": "arn:aws:lambda:${aws:region}:${aws:accountId}:function:${self:service}-${sls:stage}-another-hello",
-      "Next": "Succeed"
-    },
-    "Fail": {
-      "Type": "Fail"
+      "Resource": "arn:aws:lambda:${aws:region}:${aws:accountId}:function:${self:service}-${sls:stage}-first-lambda",
+      "Next": "Succeed",
+      "ResultSelector": {
+        "modifiedPayload": {
+          "body.$": "$.statusCode",
+          "statusCode.$": "$.body"
+        }
+      },
+      "ResultPath": "$.Result",
+      "OutputPath": "$.Result.modifiedPayload.body"
     },
     "Succeed": {
       "Type": "Succeed"
